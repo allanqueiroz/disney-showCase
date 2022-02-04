@@ -28,12 +28,13 @@ const style = {
 const ShowCase = () => {
     const [characterData, setCharacterData] = React.useState([]);
     const [open, setOpen] = React.useState(false);
-    const [idOnModal, setIdOnModal] = React.useState(0);
+    const [character, setCharacter] = React.useState({});
 
-    const handleOpen = (id) => {setOpen(true); setIdOnModal(id)}
+    const handleOpen = (updateClickedCharacter) => {setOpen(true); setCharacter(updateClickedCharacter)}
     const handleClose = () => setOpen(false);
 
     const OpenModal = () => {
+        console.log(character)
         return <div>
             <Modal open={open}
                 onClose={handleClose}
@@ -41,13 +42,16 @@ const ShowCase = () => {
                 aria-describedby="modal-modal-description">
                 <Box sx={style}>
                     <Typography id="modal-modal-title" variant="h6" component="h2">
-                        MEU ID: {idOnModal}
+                        MEU ID: {character._id}
+                    </Typography>
+                    <Typography id="modal-modal-title" variant="h6" component="h2">
+                        FILMES: {character.films[0]}
                     </Typography>
                     <Typography id="modal-modal-description"
                         sx={
                             {mt: 2}
                     }>
-                        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+                        {character.name}
                     </Typography>
                 </Box>
             </Modal>
@@ -75,19 +79,19 @@ const ShowCase = () => {
                     }
                 }>
                     {
-                    characterData.data.map(({_id, name, imageUrl}) => (
-                        <div key={_id}>
+                    characterData.data.map((item) => (
+                        <div key={item._id}>
                             <Card sx={
                                 {
                                     margin: 2,
                                     width: 180
                                 }
                             }>
-                                <CardActionArea onClick={()=>handleOpen(_id)}>
+                                <CardActionArea onClick={()=>handleOpen(item)}>
                                     <CardMedia component="img"
-                                        src={imageUrl}
+                                        src={item.imageUrl}
                                         alt={
-                                            `character's card: ${name}`
+                                            `character's card: ${item.name}`
                                         }
                                         height="160"
                                         sx={
@@ -98,7 +102,7 @@ const ShowCase = () => {
                                     }/>
                                     <CardContent>
                                         <Typography gutterBottom variant="h7">
-                                            {name} </Typography>
+                                            {item.name} </Typography>
                                     </CardContent>
                                 </CardActionArea>
                             </Card>
@@ -123,7 +127,7 @@ const ShowCase = () => {
 
                 </Box> : <h3>Nada para ver aqu1 :D</h3>
             } </Container>
-            <OpenModal/>
+            {open?<OpenModal/>:null}
         </>
     )
 }
