@@ -15,6 +15,7 @@ import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import SearchIcon from '@mui/icons-material/Search';
+import AppBar from '@mui/material/AppBar';
 
 const style = {
     position: 'absolute',
@@ -81,34 +82,39 @@ const ShowCase = () => {
 
     return (
         <>
-            <Container maxWidth="lg">
-                <h1>Disney Show Case - Characters</h1>
-                <Box sx={{display: "flex"}}>
-                    <TextField
-                        label="Digite o que você deseja pesquisar"
-                        sx={{width:"90%", bgcolor:"#f3f7f3"}}
-                        variant="filled"
-                    />
-                    <Button variant="contained" sx={{marginLeft:1}} endIcon={<SearchIcon />} > Pesquisar</Button>
+        <Box >
+                    <AppBar position="static" sx={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+                        <Typography
+                            variant="h6"
+                            sx={{ width: "40%", padding:1 }}
+                        >
+                            DISNEY SHOWCASE
+                        </Typography>
+                        <Box sx={{ display: "flex", width: "45%" }}>
+                            <TextField
+                                label="Pesquisar Personagem"
+                                sx={{ bgcolor: "#f3f7f3", width: "80%" }}
+                                variant="filled"
+                            />
+                            <Button variant="contained" sx={{width: "20%", outline:"none"}}><SearchIcon /></Button>
+                        </Box>
+                    </AppBar>
                 </Box>
+            <Container maxWidth="lg">
+                
                 {
-                    characterData.data ? <Box sx={
-                        {
-                            display: "flex",
-                            flexWrap: "wrap",
-                            justifyContent: "center"
-                        }
-                    }>
-
+                    characterData.data ? <Box sx={{
+                        display: "flex",
+                        flexWrap: "wrap",
+                        justifyContent: "center"
+                    }}>
                         {
                             characterData.data.map((item) => (
                                 <div key={item._id}>
-                                    <Card sx={
-                                        {
-                                            margin: 2,
-                                            width: 180
-                                        }
-                                    }>
+                                    <Card sx={{
+                                        margin: 2,
+                                        width: 180
+                                    }}>
                                         <CardActionArea onClick={() => handleOpen(item)}>
                                             <CardMedia component="img"
                                                 src={item.imageUrl}
@@ -129,24 +135,18 @@ const ShowCase = () => {
                                         </CardActionArea>
                                     </Card>
                                 </div>
-                            ))
-                        }
+                            ))}
                         <Stack spacing={2}>
-                            <Pagination count={
-                                characterData.totalPages
-                            }
+                            <Pagination count={characterData.totalPages}
                                 variant="outlined"
                                 shape="rounded"
                                 showFirstButton
                                 showLastButton
-                                sx={
-                                    {
-                                        padding: 3,
-                                        marginLeft: 3
-                                    }
-                                } />
+                                sx={{
+                                    padding: 3,
+                                    marginLeft: 3
+                                }} />
                         </Stack>
-
                     </Box> : <h3>CARREGANDO</h3>
                 }
             </Container>
