@@ -1,5 +1,5 @@
 
-## Description Test
+## Test Description
 
 Exercite sua criatividade e seus conhecimentos em React, construindo uma interface para a API do https://disneyapi.dev/ (focar na API REST). Nessa API estão disponíveis os personagens da Disney com várias informações e uma imagem de cada um deles.
 
