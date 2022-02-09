@@ -24,17 +24,15 @@ const styleModal = {
     bgcolor: '#ff9200',
     border: '2px solid #0900ff',
     boxShadow: 24,
-    p: 4
+    p: 4,
+    height:"100%"
 };
 
 const ShowCase = () => {
     const [characterData, setCharacterData] = React.useState([]);
     const [open, setOpen] = React.useState(false);
-    const [character, setCharacter] = React.useState({});
-    const [filter, setFilter] = React.useState("");
-
-    const handleOpen = (updateClickedCharacter) => { setOpen(true); setCharacter(updateClickedCharacter) }
-    const handleClose = () => setOpen(false);
+    const [char, setChar] = React.useState({});
+    const [filterChar, setFilterChar] = React.useState("");
 
     React.useEffect(async () => {
         try {
@@ -46,22 +44,61 @@ const ShowCase = () => {
         }
     }, [])
 
+    const handleOpen = (updateClickedCharacter) => { setOpen(true); setChar(updateClickedCharacter) }
+
+    const LoadAllCharacters = () => {
+        return (
+            <React.Fragment>
+                {
+                    characterData.data.map((item) => (
+                        <div key={item._id}>
+                            <Card sx={{
+                                margin: 2,
+                                width: 180
+                            }}>
+                                <CardActionArea onClick={() => handleOpen(item)}>
+                                    <CardMedia component="img"
+                                        src={item.imageUrl}
+                                        alt={
+                                            `character's card: ${item.name}`
+                                        }
+                                        height="160"
+                                        sx={
+                                            { objectFit: "fill" }
+                                        } />
+                                    <Divider sx={
+                                        { margin: 1 }
+                                    } />
+                                    <CardContent>
+                                        <Typography gutterBottom variant="h7">
+                                            {item.name} </Typography>
+                                    </CardContent>
+                                </CardActionArea>
+                            </Card>
+                        </div>
+                    ))
+                }
+            </React.Fragment>
+        )
+    }
     const ModalCharacter = () => {
         return <div>
-            <Modal open={open}
-                onClose={handleClose}>
-                <Box sx={styleModal}>
-                    <Typography variant="h4" >
-                        Olá, me chamo {character.name}
-                    </Typography>
+            <Modal
+                open={open}
+                onClose={() => setOpen(false)}
+                disableScrollLock={true}
+                sx={{overflowY:"scroll"}}
+            >
+                <Box sx={styleModal} >
+                    <Typography variant="h4" >Olá, me chamo {char.name}</Typography>
                     <Divider sx={{ margin: 1 }} />
-                    <ShowDescriptionItem variant="h6" characterItem={character.allies}>-Aliados:</ShowDescriptionItem>
-                    <ShowDescriptionItem variant="h6" characterItem={character.enemies}>-Inimigos:</ShowDescriptionItem>
-                    <ShowDescriptionItem variant="h6" characterItem={character.films}>-Filmes:</ShowDescriptionItem>
-                    <ShowDescriptionItem variant="h6" characterItem={character.parkAttractions}>-Atrações:</ShowDescriptionItem>
-                    <ShowDescriptionItem variant="h6" characterItem={character.shortFilms}>-Curtas:</ShowDescriptionItem>
-                    <ShowDescriptionItem variant="h6" characterItem={character.tvShows}>-Programas de TV:</ShowDescriptionItem>
-                    <ShowDescriptionItem variant="h6" characterItem={character.videoGames}>-Jogos de Videogame:</ShowDescriptionItem>
+                    <ShowDescriptionItem variant="h6" characterItem={char.allies}>-Aliados:</ShowDescriptionItem>
+                    <ShowDescriptionItem variant="h6" characterItem={char.enemies}>-Inimigos:</ShowDescriptionItem>
+                    <ShowDescriptionItem variant="h6" characterItem={char.films}>-Filmes:</ShowDescriptionItem>
+                    <ShowDescriptionItem variant="h6" characterItem={char.parkAttractions}>-Atrações:</ShowDescriptionItem>
+                    <ShowDescriptionItem variant="h6" characterItem={char.shortFilms}>-Curtas:</ShowDescriptionItem>
+                    <ShowDescriptionItem variant="h6" characterItem={char.tvShows}>-Programas de TV:</ShowDescriptionItem>
+                    <ShowDescriptionItem variant="h6" characterItem={char.videoGames}>-Jogos de Videogame:</ShowDescriptionItem>
                 </Box>
             </Modal>
         </div>
@@ -78,90 +115,83 @@ const ShowCase = () => {
         </React.Fragment>
 
     }
+    const SearchCharacter = () => {
+        return (
+            <React.Fragment>
+                {
+                    characterData.data.filter((item) => {
+                        if (item.name.toLowerCase().includes(filterChar.toLowerCase()) ||
+                            item.videoGames.includes(filterChar) ||
+                            item.films.includes(filterChar) ||
+                            item.tvShows.includes(filterChar)) {
+                            return item
+                        }
+                    }).map(character => {
+                        return <div key={character._id}>
+                            <Card sx={{
+                                margin: 2,
+                                width: 180
+                            }}>
+                                <CardActionArea onClick={() => handleOpen(character)}>
+                                    <CardMedia component="img"
+                                        src={character.imageUrl}
+                                        alt={
+                                            `character's card: ${character.name}`
+                                        }
+                                        height="160"
+                                        sx={
+                                            { objectFit: "fill" }
+                                        } />
+                                    <Divider sx={
+                                        { margin: 1 }
+                                    } />
+                                    <CardContent>
+                                        <Typography gutterBottom variant="h7">
+                                            {character.name} </Typography>
+                                    </CardContent>
+                                </CardActionArea>
+                            </Card>
+                        </div>
+                    })
+                }
+            </React.Fragment>
+        )
+    }
 
     return (
         <>
-            <MenuBar setFilter={setFilter}/>
-            <Container maxWidth="lg">
-                {
-                    characterData.data ? <Box sx={{
-                        display: "flex",
-                        flexWrap: "wrap",
-                        justifyContent: "center"
-                    }}>
-                        {   !filter ?
-                            characterData.data.map((item) => (
-                                <div key={item._id}>
-                                    <Card sx={{
-                                        margin: 2,
-                                        width: 180
-                                    }}>
-                                        <CardActionArea onClick={() => handleOpen(item)}>
-                                            <CardMedia component="img"
-                                                src={item.imageUrl}
-                                                alt={
-                                                    `character's card: ${item.name}`
-                                                }
-                                                height="160"
-                                                sx={
-                                                    { objectFit: "fill" }
-                                                } />
-                                            <Divider sx={
-                                                { margin: 1 }
-                                            } />
-                                            <CardContent>
-                                                <Typography gutterBottom variant="h7">
-                                                    {item.name} </Typography>
-                                            </CardContent>
-                                        </CardActionArea>
-                                    </Card>
-                                </div>
-                            )) : characterData.data.map(item =>{
-                                if(item.name.toLowerCase().includes(filter.toLowerCase()))
-                                return (
-                                    <div key={item._id}>
-                                    <Card sx={{
-                                        margin: 2,
-                                        width: 180
-                                    }}>
-                                        <CardActionArea onClick={() => handleOpen(item)}>
-                                            <CardMedia component="img"
-                                                src={item.imageUrl}
-                                                alt={
-                                                    `character's card: ${item.name}`
-                                                }
-                                                height="160"
-                                                sx={
-                                                    { objectFit: "fill" }
-                                                } />
-                                            <Divider sx={
-                                                { margin: 1 }
-                                            } />
-                                            <CardContent>
-                                                <Typography gutterBottom variant="h7">
-                                                    {item.name} </Typography>
-                                            </CardContent>
-                                        </CardActionArea>
-                                    </Card>
-                                </div>
-                                )
-                            })
-                        }
+            <MenuBar setFilter={setFilterChar} />
+            <Container maxWidth="lg">{
+                <Box sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    border: "1px solid #ff0000",
+                    minHeight: "90vh"
+                }}>
+                    {characterData.data ?
+                        <Box sx={{
+                            display: "flex",
+                            flexWrap: "wrap",
+                            justifyContent: "center",
+                        }}>
+                            {!filterChar ? <LoadAllCharacters /> : <SearchCharacter />}
 
-                        <Stack spacing={2}>
-                            <Pagination count={characterData.totalPages}
-                                variant="outlined"
-                                shape="rounded"
-                                showFirstButton
-                                showLastButton
-                                sx={{
-                                    padding: 3,
-                                    marginLeft: 3
-                                }} />
-                        </Stack>
-                    </Box> : <h3>CARREGANDO</h3>
-                }
-            </Container>
+                        </Box> : <h3>CARREGANDO</h3>}
+                    <Stack spacing={2}>
+                        <Pagination count={characterData.totalPages}
+                            variant="outlined"
+                            shape="rounded"
+                            showFirstButton
+                            showLastButton
+                            sx={{
+                                padding: 3,
+                                marginLeft: 3
+                            }} />
+                    </Stack>
+                </Box>
+            }</Container>
             {open ? <ModalCharacter /> : null}
         </>
     )
