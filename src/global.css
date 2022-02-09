@@ -4,3 +4,6 @@
 body{
     background-color: #f3cc64;
 }
+.close-icon-pointer{
+    cursor:pointer
+}

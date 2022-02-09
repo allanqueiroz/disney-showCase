@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography';
 const MenuBar = ({ setFilter }) => {
     return (
         <Box >
-            <AppBar position="static" sx={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-evenly", bgcolor: "#12194a" }}>
+            <AppBar position="static" sx={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-evenly", bgcolor: "#393e8f" }}>
                 <Typography
                     variant="h6"
                     sx={{ width: "60%", padding: 1 }}
