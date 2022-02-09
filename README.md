@@ -8,9 +8,9 @@ A única lib obrigatória é ReactJS, fora ela pode usar o que for mais adequado
 Documentação da API: https://disneyapi.dev/docs
 
 Características mínimas do App:
-- a interface deve mostrar os personagens em forma de cards, contendo o nome e a imagem de cada um
-- estes cards devem ser clicáveis, ao clicar deve ser aberto um modal com as demais informações sobre o personagem
-- também deve haver uma forma de pesquisar os personagens por nome, filme, TV show ou vídeo-game
+- a interface deve mostrar os personagens em forma de cards, contendo o nome e a imagem de cada um ✅️
+- estes cards devem ser clicáveis, ao clicar deve ser aberto um modal com as demais informações sobre o personagem ✅️
+- também deve haver uma forma de pesquisar os personagens por nome, filme, TV show ou vídeo-game ✅️
 
 O estilo é por sua conta.
 
@@ -19,4 +19,4 @@ O projeto deve ser disponibilizado no GitHub ou Gitlab, como público, e o link 
 Extras interessantes:
 Usar somente hooks
 Testes
-Uso do Material-UI
+Uso do Material-UI ✅️
