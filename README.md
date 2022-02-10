@@ -17,6 +17,6 @@ O estilo é por sua conta.
 O projeto deve ser disponibilizado no GitHub ou Gitlab, como público, e o link deve ser enviado por e-mail. A entrega deve ser feita até o dia 10/02/22.
 
 Extras interessantes:
-- Usar somente hooks
+- Usar somente hooks✔️
 - Testes
 - Uso do Material-UI ✔️
