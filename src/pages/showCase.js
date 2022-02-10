@@ -9,8 +9,6 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
-import CancelIcon from '@mui/icons-material/Cancel';
-import CloseIcon from '@mui/icons-material/Close';
 import Divider from '@mui/material/Divider';
 import Icon from '@mui/material/Icon';
 import Modal from '@mui/material/Modal';
